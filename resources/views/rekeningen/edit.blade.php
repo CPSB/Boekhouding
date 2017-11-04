@@ -17,7 +17,7 @@
 
                     <div class="panel-body">
                         <form method="POST" action="{{ route('rekeningen.update', $rekening) }}" class="form-horizontal">
-                            {{ method_field('UPDATE') }}
+                            {{ method_field('PUT') }}
                             {{ csrf_field() }} {{-- Form field protection --}}
                             @form($rekening)
 

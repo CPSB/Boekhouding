@@ -93,12 +93,19 @@ class RekeningController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param RekeningValidator $input
+     * @param  int $id
+     * @return RedirectResponse
      */
-    public function update(Request $request, $id): RedirectResponse
+    public function update(RekeningValidator $input, $id): RedirectResponse
     {
+        $input->merge(['author_id' => auth()->user()->id]);
+        $filter = ['_method', '_token'];
+
+        if ($rekening = $this->rekeningenRepository->update($input->except($filter), $id))  {
+            flash("De rekening {$rekening->rekening_naam} is aangepast.")->success();
+        }
+
         return redirect()->back(Response::HTTP_FOUND);
     }
 

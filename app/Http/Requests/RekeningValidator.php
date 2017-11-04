@@ -29,7 +29,7 @@ class RekeningValidator extends FormRequest
     public function rules()
     {
         return [
-            'rekening_naam'  => 'required|max:255|unique:rekeningens',
+            'rekening_naam'  => 'required|max:255',
             'beschrijving'   => 'required',
         ];
     }
