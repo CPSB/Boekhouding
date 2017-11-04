@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <script src="https://use.fontawesome.com/56f6f47c24.js"></script>
 </head>
 <body>
     <div id="app">
@@ -37,7 +38,7 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
                         @if (auth()->check()) {{-- User is currently authenticated. --}}
-                            <li @if (Request::is('rekeningen*'))>
+                            <li @if (Request::is('rekeningen*')) class="active" @endif>
                                 <a href="{{ route('rekeningen.index') }}">
                                     <i class="fa fa-list"></i> Rekeningen
                                 </a>
@@ -49,9 +50,13 @@
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
                         @guest
-                            <li><a href="{{ route('login') }}">Login</a></li>
-                            <li><a href="{{ route('register') }}">Register</a></li>
+                            {{-- NO LINKS for quests allowed here --}}
                         @else
+                            <li>
+                                <a href="">
+                                    <i class="fa fa-bell"></i>
+                                </a>
+                            </li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
                                     {{ Auth::user()->name }} <span class="caret"></span>
@@ -59,10 +64,13 @@
 
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            Logout
+                                        <a href="">
+                                            <i class="fa fa-fw fa-cogs"></i> Instellingen
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                            <i class="fa fa-fw fa-sign-out"></i> Uitloggen
                                         </a>
 
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

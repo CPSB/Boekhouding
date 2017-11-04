@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RekeningValidator;
 use App\Repositories\RekeningenRepository;
-use Illuminate\Http\{RedirectResponse, Response};
+use Illuminate\Http\{
+    RedirectResponse, Request, Response
+};
 use Illuminate\View\View;
 
 /**
@@ -13,18 +16,18 @@ use Illuminate\View\View;
  */
 class RekeningController extends Controller
 {
-    private $rekeningRepository; /** RekeningRepository $rekeningRepository */
+    private $rekeningenRepository; /** RekeningenRepository $rekeningRepository */
 
     /**
      * RekeningController constructor.
      *
-     * @param  RekeningenRepository $rekeningRepository Abstraction layer between database and controller.
+     * @param  RekeningenRepository $rekeningenRepository Abstraction layer between database and controller.
      * @return void
      */
-    public function __construct(RekeningenRepository $rekeningRepository)
+    public function __construct(RekeningenRepository $rekeningenRepository)
     {
         $this->middleware('auth');
-        $this->rekeningRepository = $rekeningRepository;
+        $this->rekeningenRepository = $rekeningenRepository;
     }
 
     /**
@@ -34,7 +37,7 @@ class RekeningController extends Controller
      */
     public function index(): View
     {
-        return view();
+        return view('rekeningen.index', ['rekeningen' => $this->rekeningenRepository->paginate(20)]);
     }
 
     /**
@@ -44,18 +47,24 @@ class RekeningController extends Controller
      */
     public function create(): View
     {
-        return view('rekeningen.index');
+        return view('rekeningen.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  RekeningValidator $input Form validation class for the user input.
+     * @return RedirectResponse
      */
-    public function store(Request $request): RedirectResponse
+    public function store(RekeningValidator $input): RedirectResponse
     {
-        return view('rekeningen.create');
+        $input->merge(['author_id' => auth()->user()->id]);
+
+        if ($this->rekeningenRepository->create($input->all())) { // Record created
+            flash('De rekening is opgeslagen in het systeem.')->success();
+        }
+
+        return redirect()->route('rekeningen.index');
     }
 
     /**
@@ -77,7 +86,8 @@ class RekeningController extends Controller
      */
     public function edit($id): View
     {
-        return view('rekeningen.edit');
+        $rekening = $this->rekeningenRepository->find($id) ?: abort(Response::HTTP_NOT_FOUND);
+        return view('rekeningen.edit', compact('rekening'));
     }
 
     /**
@@ -100,6 +110,12 @@ class RekeningController extends Controller
      */
     public function destroy($id): RedirectResponse
     {
-        //
+        $rekening = $this->rekeningenRepository->find($id) ?: abort(Response::HTTP_NOT_FOUND);
+
+        if ($rekening->delete()) {
+            flash("De rekening {$rekening->rekening_naam} is verwijderd uit het systeem")->success();
+        }
+
+        return redirect()->route('rekeningen.index');
     }
 }

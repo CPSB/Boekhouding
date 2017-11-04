@@ -2,9 +2,9 @@
 
 namespace App\Repositories;
 
-use Rekeningenspace\Rekeningen;
 use ActivismeBE\DatabaseLayering\Repositories\Contracts\RepositoryInterface;
 use ActivismeBE\DatabaseLayering\Repositories\Eloquent\Repository;
+use App\Rekeningen;
 
 /**
  * Class RekeningenRepository

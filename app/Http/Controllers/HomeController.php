@@ -21,8 +21,12 @@ class HomeController extends Controller
      * Get the login form for the application.
      * @return View
      */
-    public function index(): View
+    public function index()
     {
+        if (auth()->check()) {
+            return redirect()->route('home');
+        }
+
         return view('auth.login');
     }
 
