@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\RekeningenRepository;
 use App\Repositories\TransactieRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -14,17 +15,22 @@ use Illuminate\View\View;
  */
 class TransactieController extends Controller
 {
-    private $transactieRepository;
+    private $transactieRepository; /** @var TransactieRepository $transactieRepository */
+    private $rekeningenRepository; /** @var RekeningenRepository $rekeningenRepository */
 
     /**
      * TransactieController constructor.
      *
+     * @param  TransactieRepository $transactieRepository Abstraction layer between database and controller.
+     * @param  RekeningenRepository $rekeningenRepository Abstraction layer between database and controller
      * @return void
      */
-    public function __construct(TransactieRepository $transactieRepository)
+    public function __construct(TransactieRepository $transactieRepository, RekeningenRepository $rekeningenRepository)
     {
         $this->middleware('auth');
+
         $this->transactieRepository = $transactieRepository;
+        $this->rekeningenRepository = $rekeningenRepository;
     }
 
     /**
@@ -34,7 +40,9 @@ class TransactieController extends Controller
      */
     public function index(): View
     {
-        return view();
+        return view('transacties.index', [
+            'transacties' => $this->transactieRepository->paginate(20)
+        ]);
     }
 
     /**

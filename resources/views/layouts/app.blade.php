@@ -38,6 +38,12 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
                         @if (auth()->check()) {{-- User is currently authenticated. --}}
+                            <li @if (Request::is('transacties*')) class="active" @endif>
+                                <a href="{{ route('transacties.index') }}">
+                                    <i class="fa fa-list"></i> Transacties
+                                </a>
+                            </li>
+
                             <li @if (Request::is('rekeningen*')) class="active" @endif>
                                 <a href="{{ route('rekeningen.index') }}">
                                     <i class="fa fa-list"></i> Rekeningen

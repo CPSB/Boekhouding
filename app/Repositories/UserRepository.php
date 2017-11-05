@@ -2,16 +2,16 @@
 
 namespace App\Repositories;
 
+use Userspace\User;
 use ActivismeBE\DatabaseLayering\Repositories\Contracts\RepositoryInterface;
 use ActivismeBE\DatabaseLayering\Repositories\Eloquent\Repository;
-use App\Transacties;
 
 /**
- * Class TransactieRepository
+ * Class UserRepository
  *
  * @package App\Repositories
  */
-class TransactieRepository extends Repository
+class UserRepository extends Repository
 {
 
     /**
@@ -21,6 +21,6 @@ class TransactieRepository extends Repository
      */
     public function model()
     {
-        return Transacties::class;
+        return User::class;
     }
 }
