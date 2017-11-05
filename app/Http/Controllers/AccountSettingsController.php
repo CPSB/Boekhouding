@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\{AccountInfoValidator, AccountSecValidator};
+use Illuminate\Http\{RedirectResponse, Request};
 use App\Repositories\UserRepository;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 
 /**
  * Class AccountSettingsController
