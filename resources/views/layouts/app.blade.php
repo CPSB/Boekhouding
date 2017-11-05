@@ -70,7 +70,7 @@
 
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="">
+                                        <a href="{{ route('account.settings') }}">
                                             <i class="fa fa-fw fa-cogs"></i> Instellingen
                                         </a>
                                     </li>

@@ -16,5 +16,8 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('index');
 Route::get('/home', 'HomeController@indexBackend')->name('home');
 
+// Account settings routes
+Route::get('account', 'AccountSettingsController@index')->name('account.settings');
+
 Route::resource('/transacties', 'TransactieController');
 Route::resource('/rekeningen', 'RekeningController');
