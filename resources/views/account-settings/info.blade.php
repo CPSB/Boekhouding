@@ -4,20 +4,23 @@
     </div>
 
     <div class="panel-body">
-        <form method="POST" action="" class="form-horizontal">
+        <form method="POST" action="{{ route('account.settings.info') }}" class="form-horizontal">
             {{ csrf_field() }}
+            @form($user)
 
-            <div class="form-group">
+            <div class="form-group @error('name', 'has-error')">
                 <label class="control-label col-md-3">Uw naam: <span class="text-danger">*</span></label>
                 <div class="col-md-9">
-                    <input type="text" class="form-control" placeholder="Uw gebruikersnaam">
+                    <input type="text" class="form-control" placeholder="Uw gebruikersnaam" @input('name')>
+                    @error('name')
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group @error('email', 'has-error')">
                 <label class="control-label col-md-3">Uw e-mailadres: <span class="text-danger">*</label>
                 <div class="col-md-9">
-                    <input type="email" class="form-control" placeholder="Uw email adres">
+                    <input type="email" class="form-control" placeholder="Uw email adres" @input('email')>
+                    @error('email')
                 </div>
             </div>
 

@@ -3,20 +3,22 @@
         <i class="fa fa-key"></i> Account beveiliging
     </div>
     <div class="panel-body">
-        <form class="form-horizontal" method="POST" action="">
+        <form class="form-horizontal" method="POST" action="{{ route('account.settings.security') }}">
             {{ csrf_field() }} {{-- FORM field protection --}}
 
-            <div class="form-group">
+            <div class="form-group @error('password', 'has-error')">
                 <label class="control-label col-md-3">Wachtwoord: <span class="text-danger">*</span></label>
                 <div class="col-md-9">
-                    <input type="password" class="form-control" placeholder="Nieuw wachtwoord.">
+                    <input type="password" class="form-control" placeholder="Nieuw wachtwoord." @input('password')>
+                    @error('password')
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group @error('password_confirmation', 'has-error')">
                 <label class="control-label col-md-3">Bevestig wachtwoord: <span class="text-danger">*</span></label>
                 <div class="col-md-9">
-                    <input type="password" class="form-control" placeholder="Bevstig nieuw wachtwoord.">
+                    <input type="password" class="form-control" placeholder="Bevestig nieuw wachtwoord." @input('password_confirmation')>
+                    @error('password_confirmation')
                 </div>
             </div>
 

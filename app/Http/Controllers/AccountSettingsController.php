@@ -36,17 +36,17 @@ class AccountSettingsController extends Controller
     public function index(): View
     {
         return view('account-settings.index', [
-            'user' => $this->usersRepository->find(auth()->user()->id)
+            'user' => $this->usersRepository->find(auth()->user()->id, ['name', 'email'])
         ]);
     }
 
     /**
      * Pas de account informatie aan.
      *
-     * @param  AccountSecValidator $input De validatie instantie voor gegeven invoer.
+     * @param  AccountInfoValidator $input De validatie instantie voor gegeven invoer.
      * @return RedirectResponse
      */
-    public function updateInfo(AccountSecValidator $input): RedirectResponse
+    public function updateInfo(AccountInfoValidator $input): RedirectResponse
     {
         if ($this->usersRepository->update($input->except('_token'), auth()->user()->id)) {
             flash('Uw account informatie is aangepast.')->success();
@@ -58,12 +58,12 @@ class AccountSettingsController extends Controller
     /**
      * Pas de account beveiliging aan.
      *
-     * @param  AccountInfoValidator $input De validatie instantie voor gegeven invoer.
+     * @param  AccountSecValidator $input De validatie instantie voor gegeven invoer.
      * @return RedirectResponse
      */
-    public function updateSecurity(AccountInfoValidator $input): RedirectResponse
+    public function updateSecurity(AccountSecValidator $input): RedirectResponse
     {
-        if ($this->usersRepository->update($input->except('_token'), auth()->user()->id)) {
+        if ($this->usersRepository->update(['password' => bcrypt($input->password)], auth()->user()->id)) {
             flash('Uw account beveiliging is aangepast.')->success();
         }
 
