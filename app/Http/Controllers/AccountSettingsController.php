@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AccountInfoValidator;
-use App\Http\Requests\AccountSecValidator;
+use App\Http\Requests\{AccountInfoValidator, AccountSecValidator};
 use App\Repositories\UserRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
+/**
+ * Class AccountSettingsController
+ *
+ * @package App\Http\Controllers
+ */
 class AccountSettingsController extends Controller
 {
     private $usersRepository; /** @var UserRepository $userRepository */
