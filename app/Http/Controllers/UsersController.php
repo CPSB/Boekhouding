@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserValidator;
 use App\Repositories\UserRepository;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
@@ -54,12 +55,16 @@ class UsersController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param UserValidator $input
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserValidator $input)
     {
-        //
+        if ($user = $this->userRepository->create($input->except('_token'))->assignRole('boekhouding')) {
+            flash("{$user->name} is toegevoegd als login in de boekhouding.")->success();
+        }
+
+        return redirect()->route('users.index');
     }
 
     /**

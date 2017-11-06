@@ -48,6 +48,15 @@
                                 </div>
                             </div>
 
+                            <div class="@error('password_confirmation') form-group">
+                                <label class="col-md-2 control-label">Herhaal wachtwoord: <span class="text-danger">*</span></label>
+
+                                <div class="col-md-10">
+                                    <input type="password" class="form-control" placeholder="Herhaal het wachtwoord" @input('password_confirmation')>
+                                    @error('password_confirmation')
+                                </div>
+                            </div>
+
                             <div class="form-group">
                                 <div class="col-md-offset-2 col-md-10">
                                     <button type="submit" class="btn btn-sm btn-success">
