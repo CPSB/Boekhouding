@@ -15,7 +15,7 @@
                                 <i class="fa fa-search"></i> Zoek transactie
                             </a>
 
-                            <a href="" class="btn btn-xs btn-default">
+                            <a href="{{ route('transacties.create') }}" class="btn btn-xs btn-default">
                                 <i class="fa fa-plus"></i> Transactie toevoegen.
                             </a>
                         </div>

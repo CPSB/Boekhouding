@@ -52,7 +52,9 @@ class TransactieController extends Controller
      */
     public function create(): View
     {
-        return view();
+        return view('transacties.create', [
+            'rekeningen' => $this->rekeningenRepository->all(['id', 'rekening_naam', 'rekening_nr'])
+        ]);
     }
 
     /**
