@@ -30,11 +30,15 @@ class UsersController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function index(): View
     {
-        return view('users.index', ['users' => $this->userRepository->paginate(20)]);
+        return view('users.index', [
+            'users' => $this->userRepository->entity()->whereHas('roles', function ($query) {
+                $query->where('name', 'boekhouding');
+            })->paginate(20)
+        ]);
     }
 
     /**
