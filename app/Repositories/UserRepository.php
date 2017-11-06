@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use Userspace\User;
+use App\User;
 use ActivismeBE\DatabaseLayering\Repositories\Contracts\RepositoryInterface;
 use ActivismeBE\DatabaseLayering\Repositories\Eloquent\Repository;
 
