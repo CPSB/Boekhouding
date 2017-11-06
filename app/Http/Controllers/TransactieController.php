@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\TransactieValidator;
 use App\Repositories\RekeningenRepository;
 use App\Repositories\TransactieRepository;
+use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -66,7 +67,22 @@ class TransactieController extends Controller
      */
     public function store(TransactieValidator $input): RedirectResponse
     {
-        dd($input->all());
+        $opslagFactuur = $input->file('factuur')->storeAs(
+        'facturen/' . date('Y') . '/' . date('m'),
+        'factuur-' . $input->naam . '.' . $input->file('factuur')->getClientOriginalExtension()
+        );
+
+        $input->merge([
+            'author_id' => $input->user()->id,
+            'factuur_path' => $opslagFactuur,
+            'transactie_datum' => (new Carbon($input->transactie_datum))->format('d/m/Y H:i:s')
+        ]);
+
+        if ($gegevens = $this->transactieRepository->create($input->except(['factuur', '_token', 'transactie_datum']))) {
+            flash('De transactie is opgeslagen in het systeem.')->success();
+        }
+
+        return redirect()->route('transacties.index');
     }
 
     /**

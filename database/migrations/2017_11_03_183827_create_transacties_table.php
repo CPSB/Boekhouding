@@ -15,6 +15,12 @@ class CreateTransactiesTable extends Migration
     {
         Schema::create('transacties', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('author_id');
+            $table->string('naam');
+            $table->string('type');
+            $table->timestamp('transactie_datum');
+            $table->text('beschrijving');
+            $table->string('factuur_path');
             $table->timestamps();
         });
     }

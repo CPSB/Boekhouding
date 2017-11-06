@@ -30,7 +30,7 @@
 
                                     <div class="col-md-8 @error('naam', 'has-error')" style="margin-bottom: 8px;">
                                         <label>Naam: <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" placeholder="Naam v/d transactie">
+                                        <input type="text" class="form-control" placeholder="Naam v/d transactie" @input('naam')>
                                         @error('naam')
                                     </div>
 
