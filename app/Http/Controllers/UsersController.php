@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserValidator;
 use App\Repositories\UserRepository;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 /**
  * Class UsersController
@@ -45,9 +47,9 @@ class UsersController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function create()
+    public function create(): View
     {
         return view('users.create');
     }
@@ -105,10 +107,16 @@ class UsersController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy($id): RedirectResponse
     {
-        //
+        $user = $this->userRepository->find($id) ?: abort(Response::HTTP_NOT_FOUND);
+
+        if ($this->userRepository->delete($user->id)) {
+            flash("De gebruiker {$user->name} is verwijderd uit de boekhouding.")->success();
+        }
+
+        return redirect()->route('users.index');
     }
 }

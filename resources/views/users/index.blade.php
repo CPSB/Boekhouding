@@ -55,9 +55,13 @@
                                                         <i class="fa fa-ban"></i> Blokkeer
                                                     </a>
 
-                                                    <a href="" class="btn btn-xs btn-danger">
+                                                    <form action="{{ route('users.destroy', $user) }}" method="POST" id="delete-{{ $user->id }}" style="display: none;">
+                                                        {{ csrf_field() }} {{ method_field('DELETE') }}
+                                                    </form>
+
+                                                    <button type="submit" form="delete-{{ $user->id }}" class="btn btn-xs btn-danger">
                                                         <i class="fa fa-trash"></i> Verwijder
-                                                    </a>
+                                                    </button>
                                                 </td> {{-- Options --}}
                                             </tr>
                                         @endforeach {{-- END loop --}}
