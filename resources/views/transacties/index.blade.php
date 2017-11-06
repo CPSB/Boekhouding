@@ -36,7 +36,7 @@
                                 </table>
                             </div>
 
-                            {{ $transacties->render }} {{-- Pagination view instance --}}
+                            {{ $transacties->render() }} {{-- Pagination view instance --}}
                         @else {{-- Er zijn geen transacties gevonden. --}}
                             <div class="alert alert-info alert-imporant">
                                 <strong><i class="fa fa-info-circle"></i> Info:</strong>
