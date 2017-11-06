@@ -70,14 +70,22 @@ class UsersController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * [JSON]: Show a user in the application.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  integer $id The unique identifier from the user in the database
+     * @return mixed
      */
     public function show($id)
     {
-        //
+        $user = $this->userRepository->find($id);
+
+        if (count($user) > 0) { // Gebruiker gevonden met de gegeven id.
+            $jsonData = ['id' => $user->id, 'name' => $user->name, 'email' => $user->email];
+        } else { // Geen gebruiker gevonden met de gegeven ID.
+            $jsonData = ['id' => 'unknown', 'name' => 'unknown', 'email' => 'unknown'];
+        }
+
+        return response()->json($jsonData);
     }
 
     /**
