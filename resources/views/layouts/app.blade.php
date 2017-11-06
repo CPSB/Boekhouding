@@ -95,5 +95,6 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    @stack('scripts') {{-- Provide specified script stacks for specific pages --}}
 </body>
 </html>
