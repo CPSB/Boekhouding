@@ -18,3 +18,4 @@ Route::get('/home', 'HomeController@indexBackend')->name('home');
 
 Route::resource('/transacties', 'TransactieController');
 Route::resource('/rekeningen', 'RekeningController');
+Route::resource('/users', 'UsersController');
