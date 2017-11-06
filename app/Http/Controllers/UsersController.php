@@ -26,7 +26,7 @@ class UsersController extends Controller
      */
     public function __construct(UserRepository $userRepository)
     {
-        $this->middleware(['auth']);
+        $this->middleware(['role:boekhouding']);
         $this->userRepository = $userRepository;
     }
 

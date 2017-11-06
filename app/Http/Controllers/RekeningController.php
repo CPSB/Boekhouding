@@ -26,7 +26,7 @@ class RekeningController extends Controller
      */
     public function __construct(RekeningenRepository $rekeningenRepository)
     {
-        $this->middleware('auth');
+        $this->middleware(['role:boekhouding']);
         $this->rekeningenRepository = $rekeningenRepository;
     }
 
