@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TransactieValidator;
 use App\Repositories\RekeningenRepository;
 use App\Repositories\TransactieRepository;
 use Illuminate\Http\RedirectResponse;
@@ -60,12 +61,12 @@ class TransactieController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  TransactieValidator $input
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request): RedirectResponse
+    public function store(TransactieValidator $input): RedirectResponse
     {
-        //
+        dd($input->all());
     }
 
     /**
@@ -93,13 +94,13 @@ class TransactieController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  TransactieValidator $input
+     * @param  int                $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TransactieValidator $input, $id)
     {
-        //
+        dd($input->all());
     }
 
     /**

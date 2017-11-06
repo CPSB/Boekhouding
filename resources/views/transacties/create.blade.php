@@ -6,7 +6,8 @@
 
         <div class="row">
             <div class="col-md-12"> {{-- Content --}}
-                <form action="">
+                <form action="{{ route('transacties.store') }}" method="POST" enctype="multipart/form-data">
+                    {{ csrf_field() }} {{-- Form field protection --}}
 
                     <div class="panel panel-default">
                         <div class="panel-heading">
@@ -33,7 +34,7 @@
                                         @error('naam')
                                     </div>
 
-                                    <div class="col-md-offset-4 col-md-4 @error('type')" style="margin-bottom: 8px;">
+                                    <div class="col-md-offset-4 col-md-4 @error('type', 'has-error')" style="margin-bottom: 8px;">
                                         <label>Type: <span class="text-danger">*</span></label>
                                         <select class="form-control" @input('type')>
                                             <option value="">-- Selecteer het type van de transactie --</option>
@@ -60,7 +61,7 @@
                                             Datum formaat = <strong>DD/MM/YY</strong>
                                         </small>
                                     </div>
-                                    <div class="col-md-4" style="margin-bottom: 8px;">
+                                    <div class="col-md-4 @error('factuur', 'has-error')" style="margin-bottom: 8px;">
                                         <label>Scan van het factuur: <span class="text-danger">*</span></label>
                                         <input type="file" class="form-control" @input('factuur')>
                                         @error('factuur')
@@ -79,7 +80,7 @@
                                         <h4>Beschrijving van de transactie:</h4>
                                     </div>
 
-                                    <div class="col-md-8 @error('beschrijving')" style="margin-bottom: 8px;">
+                                    <div class="col-md-8 @error('beschrijving', 'has-error')" style="margin-bottom: 8px;">
                                         <label>Beschrijving: <span class="text-danger">*</span></label>
                                         <textarea placeholder="Beschrijving van de transactie. Bv: waarom is deze gemaakt" class="form-control" rows="7" @input('beschrijving')>@text('beschrijving')</textarea>
                                         @error('beschrijving')
@@ -89,15 +90,15 @@
 
                         </ul>
 
-                        <div class="panel-footer text-right">
-                            <button type="reset" class="btn btn-success btn-link">
+                        <div class="panel-footer text-right"> {{-- Buttons --}}
+                            <button type="reset" class="btn btn-link btn-xs">
                                 <i class="fa fa-undo"></i> Annuleren
                             </button>
 
-                            <button type="submit" class="btn btn-success btn-xs">
-                                <i class="fa fa-check"></i> Invoeren
+                            <button type="submit" class="btn btn-xs btn-success">
+                                <i class="fa fa-check"></i> Opslaan
                             </button>
-                        </div>
+                        </div> {{-- END buttons --}}
                     </div>
 
                 </form>
