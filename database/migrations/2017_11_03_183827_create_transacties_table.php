@@ -18,6 +18,7 @@ class CreateTransactiesTable extends Migration
             $table->integer('author_id');
             $table->string('naam');
             $table->string('type');
+            $table->string('bedrag');
             $table->timestamp('transactie_datum');
             $table->text('beschrijving');
             $table->string('factuur_path');

@@ -16,7 +16,7 @@ class Transacties extends Model
      *
      * @var array
      */
-    protected $fillable = ['author_id', 'naam', 'type', 'transactie_datum', 'beschrijving', 'factuur_path'];
+    protected $fillable = ['author_id', 'naam', 'type', 'bedrag', 'transactie_datum', 'beschrijving', 'factuur_path'];
 
     /**
      *
