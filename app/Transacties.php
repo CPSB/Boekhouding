@@ -17,4 +17,15 @@ class Transacties extends Model
      * @var array
      */
     protected $fillable = ['author_id', 'naam', 'type', 'transactie_datum', 'beschrijving', 'factuur_path'];
+
+    /**
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'author_id')->withDefault([
+            'name' => '(Verwijderde gebruiker)'
+        ]);
+    }
 }
