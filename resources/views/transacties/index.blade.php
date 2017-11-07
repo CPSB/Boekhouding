@@ -65,11 +65,11 @@
                                                         <i class="fa fa-fw fa-info-circle"></i>
                                                     </a>
 
-                                                    <a href="" class="text-muted">
+                                                    <a href="{{ route('transacties.edit', $transactie) }}" class="text-muted">
                                                         <i class="fa fa-fw fa-pencil"></i>
                                                     </a>
 
-                                                    <a href="" class="text-muted">
+                                                    <a href="{{ route('transacties.destroy', $transactie) }}" class="text-muted">
                                                         <i class="fa fa-fw fa-close"></i>
                                                     </a>
                                                 </td> {{-- /options --}}
