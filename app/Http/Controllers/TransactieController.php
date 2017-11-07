@@ -75,10 +75,10 @@ class TransactieController extends Controller
         $input->merge([
             'author_id' => $input->user()->id,
             'factuur_path' => $opslagFactuur,
-            'transactie_datum' => (new Carbon($input->transactie_datum))->format('d/m/Y H:i:s')
+            'transactie_datum' => (new Carbon($input->transactie_datum))->format('Y-m-d H:i:s')
         ]);
 
-        if ($gegevens = $this->transactieRepository->create($input->except(['factuur', '_token', 'transactie_datum']))) {
+        if ($gegevens = $this->transactieRepository->create($input->except(['factuur', '_token']))) {
             flash('De transactie is opgeslagen in het systeem.')->success();
         }
 

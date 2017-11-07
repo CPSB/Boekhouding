@@ -28,6 +28,7 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Type:</th>
+                                            <th>Datum transactie:</th>
                                             <th>Uitvoerder:</th>
                                             <th>Naam:</th>
                                             <th colspan="2">Bedrag:</th> {{-- Colspan 2 is nodig voor de functies --}}
@@ -40,19 +41,20 @@
                                                 <td>
                                                     @if ($transactie->type == 'inkomsten')
                                                         <span class="label label-success">Inkomsten</span>
-                                                    @elseif ($transctie->type == 'uitgaven')
+                                                    @elseif ($transactie->type == 'uitgaven')
                                                         <span class="label label-danger">Uitgaven</span>
                                                     @else
                                                         <span class="label label-warning">Onbekend</span>
                                                     @endif
                                                 </td>
+                                                <td>{{ \Carbon\Carbon::parse($transactie->transactie_datum)->format('d/m/Y') }}</td>
                                                 <td><a href="mailto:{{ $transactie->author->name }}">{{ $transactie->author->name }}</a></td>
                                                 <td>{{ $transactie->naam }}</td>
                                                 <td>
                                                     @if ($transactie->type == 'inkomsten')
-                                                        <span class="text-success">{{ $transactie->bedrag }}€</span>
-                                                    @elseif ($transctie->type == 'uitgaven')
-                                                        <span class="text-danger">{{ $transactie->bedrag }}€</span>
+                                                        <span class="text-success">+{{ $transactie->bedrag }}€</span>
+                                                    @elseif ($transactie->type == 'uitgaven')
+                                                        <span class="text-danger">-{{ $transactie->bedrag }}€</span>
                                                     @else
                                                         <span class="text-warning">{{ $transactie->bedrag }}€</span>
                                                     @endif
