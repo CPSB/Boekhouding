@@ -59,6 +59,20 @@
                                                         <span class="text-warning">{{ $transactie->bedrag }}€</span>
                                                     @endif
                                                 </td>
+
+                                                <td class="text-right"> {{-- Options --}}
+                                                    <a href="" class="text-muted">
+                                                        <i class="fa fa-fw fa-info-circle"></i>
+                                                    </a>
+
+                                                    <a href="" class="text-muted">
+                                                        <i class="fa fa-fw fa-pencil"></i>
+                                                    </a>
+
+                                                    <a href="" class="text-muted">
+                                                        <i class="fa fa-fw fa-close"></i>
+                                                    </a>
+                                                </td> {{-- /options --}}
                                             </tr>
                                         @endforeach
                                     </tbody>
