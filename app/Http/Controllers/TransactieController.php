@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TransactieValidator;
 use App\Repositories\RekeningenRepository;
 use App\Repositories\TransactieRepository;
+use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -52,18 +54,35 @@ class TransactieController extends Controller
      */
     public function create(): View
     {
-        return view();
+        return view('transacties.create', [
+            'rekeningen' => $this->rekeningenRepository->all(['id', 'rekening_naam', 'rekening_nr'])
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  TransactieValidator $input
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request): RedirectResponse
+    public function store(TransactieValidator $input): RedirectResponse
     {
-        //
+        $opslagFactuur = $input->file('factuur')->storeAs(
+        'facturen/' . date('Y') . '/' . date('m'),
+        'factuur-' . $input->naam . '.' . $input->file('factuur')->getClientOriginalExtension()
+        );
+
+        $input->merge([
+            'author_id' => $input->user()->id,
+            'factuur_path' => $opslagFactuur,
+            'transactie_datum' => (new Carbon($input->transactie_datum))->format('Y-m-d H:i:s')
+        ]);
+
+        if ($gegevens = $this->transactieRepository->create($input->except(['factuur', '_token']))) {
+            flash('De transactie is opgeslagen in het systeem.')->success();
+        }
+
+        return redirect()->route('transacties.index');
     }
 
     /**
@@ -91,13 +110,13 @@ class TransactieController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  TransactieValidator $input
+     * @param  int                $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TransactieValidator $input, $id)
     {
-        //
+        dd($input->all());
     }
 
     /**

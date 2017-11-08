@@ -13,7 +13,6 @@ use App\Transacties;
  */
 class TransactieRepository extends Repository
 {
-
     /**
      * Set the eloquent model class for the repository.
      *
