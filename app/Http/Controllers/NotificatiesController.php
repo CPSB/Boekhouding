@@ -18,7 +18,7 @@ class NotificatiesController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['role:boekhouding']);
     }
 
     public function index()

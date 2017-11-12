@@ -48,6 +48,12 @@
                                     <i class="fa fa-list"></i> Rekeningen
                                 </a>
                             </li>
+
+                            <li @if (Request::is('users*')) class="active" @endif>
+                                <a href="{{ route('users.index') }}">
+                                    <i class="fa fa-users"></i> Gebruikers
+                                </a>
+                            </li>
                         @endif
                     </ul>
 

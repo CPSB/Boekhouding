@@ -29,7 +29,7 @@ class TransactieController extends Controller
      */
     public function __construct(TransactieRepository $transactieRepository, RekeningenRepository $rekeningenRepository)
     {
-        $this->middleware('auth');
+        $this->middleware(['role:boekhouding']);
 
         $this->transactieRepository = $transactieRepository;
         $this->rekeningenRepository = $rekeningenRepository;
