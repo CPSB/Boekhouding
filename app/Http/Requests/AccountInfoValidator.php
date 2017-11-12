@@ -4,6 +4,11 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * Class AccountInfoValidator
+ *
+ * @package App\Http\Requests
+ */
 class AccountInfoValidator extends FormRequest
 {
     /**
@@ -13,7 +18,7 @@ class AccountInfoValidator extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +28,11 @@ class AccountInfoValidator extends FormRequest
      */
     public function rules()
     {
+        $user = auth()->user();
+
         return [
-            //
+            'name'  => 'required|string|max:255',
+            'email' => "required|string|email|max:255|unique:users,email,{$user->id}",
         ];
     }
 }

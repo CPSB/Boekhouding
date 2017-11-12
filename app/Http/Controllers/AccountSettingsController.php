@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\{AccountInfoValidator, AccountSecValidator};
 use Illuminate\Http\{RedirectResponse, Request};
 use App\Repositories\UserRepository;
+use Illuminate\View\View;
 
 /**
  * Class AccountSettingsController
@@ -27,24 +28,43 @@ class AccountSettingsController extends Controller
         $this->usersRepository = $userRepository;
     }
 
-    public function index()
+    /**
+     * Get the user settings views.
+     *
+     * @return View
+     */
+    public function index(): View
     {
-        //
+        return view('account-settings.index', [
+            'user' => $this->usersRepository->find(auth()->user()->id, ['name', 'email'])
+        ]);
     }
 
-    public function updateInfo(AccountSecValidator $input): RedirectResponse
+    /**
+     * Pas de account informatie aan.
+     *
+     * @param  AccountInfoValidator $input De validatie instantie voor gegeven invoer.
+     * @return RedirectResponse
+     */
+    public function updateInfo(AccountInfoValidator $input): RedirectResponse
     {
         if ($this->usersRepository->update($input->except('_token'), auth()->user()->id)) {
-            flash()->success();
+            flash('Uw account informatie is aangepast.')->success();
         }
 
         return redirect()->route('account.settings');
     }
 
-    public function updateSecurity(AccountInfoValidator $input): RedirectResponse
+    /**
+     * Pas de account beveiliging aan.
+     *
+     * @param  AccountSecValidator $input De validatie instantie voor gegeven invoer.
+     * @return RedirectResponse
+     */
+    public function updateSecurity(AccountSecValidator $input): RedirectResponse
     {
-        if ($this->usersRepository->update($input->except('_token'), auth()->user()->id)) {
-            flash()->success();
+        if ($this->usersRepository->update(['password' => bcrypt($input->password)], auth()->user()->id)) {
+            flash('Uw account beveiliging is aangepast.')->success();
         }
 
         return redirect()->route('account.settings');

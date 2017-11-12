@@ -4,6 +4,11 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * Class AccountSecValidator
+ *
+ * @package App\Http\Requests
+ */
 class AccountSecValidator extends FormRequest
 {
     /**
@@ -13,7 +18,7 @@ class AccountSecValidator extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +28,6 @@ class AccountSecValidator extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
-        ];
+        return ['password' => 'required|string|min:6|confirmed'];
     }
 }
