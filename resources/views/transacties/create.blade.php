@@ -28,10 +28,20 @@
                                         <small>Algemen informatie zoals, naam, type, enz....</small>
                                     </div>
 
-                                    <div class="col-md-8 @error('naam', 'has-error')" style="margin-bottom: 8px;">
+                                    <div class="col-md-4 @error('naam', 'has-error')" style="margin-bottom: 8px;">
                                         <label>Naam: <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" placeholder="Naam v/d transactie" @input('naam')>
                                         @error('naam')
+                                    </div>
+
+                                    <div class="col-md-4 @error('rekening', 'hass-error')" style="margin-bottom: 8px;">
+                                        <label>Rekening <span class="text-danger">*</span></label>
+                                        <select class="form-control" @input('rekening')>
+                                            <option value="">-- Selecteeer de rekening van de transactie --</option>
+                                            @foreach ($rekeningen as $rekening)
+                                            @endforeach
+                                        </select>
+                                        @error('rekening')
                                     </div>
 
                                     <div class="col-md-offset-4 col-md-4 @error('type', 'has-error')" style="margin-bottom: 8px;">
