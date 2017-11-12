@@ -30,4 +30,14 @@ class Rekeningen extends Model
     {
         return $this->belongsTo(User::class, 'author_id');
     }
+
+    /**
+     * Relatie om een transactie aan een rekening te koppelen.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function transactie()
+    {
+       return $this->belongsToMany(Transacties::class)->withTimestamps();
+    }
 }

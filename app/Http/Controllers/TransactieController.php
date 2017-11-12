@@ -78,7 +78,8 @@ class TransactieController extends Controller
             'transactie_datum' => (new Carbon($input->transactie_datum))->format('Y-m-d H:i:s')
         ]);
 
-        if ($gegevens = $this->transactieRepository->create($input->except(['factuur', '_token']))) {
+        if ($gegevens = $this->transactieRepository->create($input->except(['factuur', '_token', 'rekening']))) {
+            $this->rekeningenRepository->find($input->rekening)->transactie()->attach($gegevens->id);
             flash('De transactie is opgeslagen in het systeem.')->success();
         }
 

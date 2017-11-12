@@ -13,7 +13,6 @@ use App\Rekeningen;
  */
 class RekeningenRepository extends Repository
 {
-
     /**
      * Set the eloquent model class for the repository.
      *

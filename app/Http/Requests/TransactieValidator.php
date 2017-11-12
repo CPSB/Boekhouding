@@ -30,6 +30,7 @@ class TransactieValidator extends FormRequest
     {
         return [
             'naam'              => 'required',
+            'rekening'          => 'Required',
             'type'              => 'required',
             'bedrag'            => 'required|between:0.00,99999.99',
             'transactie_datum'  => 'required',
